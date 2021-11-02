@@ -1,0 +1,105 @@
+{include file="public/header"}
+    <div class="admin" style="top:70px">
+        <div class="panel-head"><strong><span class="icon-key"></span> 添加生日</strong>
+        </div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="{:url('Birthday/add')}">
+                <div class="form-group">
+                    <div class="label">
+                        <label for="sitename">姓名：</label>
+                    </div>
+                    <div class="field">
+                        <label style="line-height:33px;">
+                            <input type="text" class="input w50" name="name" size="50" placeholder="请输入姓名" />
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label for="sitename">分&nbsp;&nbsp;类：</label>
+                    </div>
+                    <div class="field">
+                        <input type="radio" name="cid" value="0" checked="checked">过阴历生日
+                        <input type="radio" name="cid" value="1">过阳历生日</div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label for="sitename">请选择生日：</label>
+                    </div>
+                    <div class="field">
+                    <select size="1" name="nmonth" class="select" style="width:8%;font-size: 14px;padding: 5px;border: solid 1px #ddd;line-height: 15px;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>月
+
+                        <select size="1" name="nday" class="select" style="width:8%;font-size: 14px;padding: 5px;border: solid 1px #ddd;line-height: 15px;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12" selected>12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                        </select> 日                        
+                
+                      
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label></label>
+                    </div>
+                    <div class="field">
+                        <button class="button bg-main icon-check-square-o" type="submit">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+  <!--左侧菜单的点亮-->        
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(4);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(1).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+
+</html>

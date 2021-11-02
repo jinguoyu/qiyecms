@@ -1,0 +1,58 @@
+{include file="public/header"}
+<div class="admin" style="top:70px">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站设置</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('site/webset')}">
+      <div class="form-group">
+        <div class="label" style="width:15%">
+          <label >自动保存草稿时间：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:10%" name="drafttime" value="{$data.drafttime}" />
+          <div class="tipss">自动保存草稿的时间间隔，单位：毫秒</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label" style="width:15%">
+          <label >后台每页记录数：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:10%" name="adpage" value="{$data.adpage}" />
+          <div class="tipss">后台数据每页显示记录数</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label" style="width:15%">
+          <label >前台每页记录数：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:10%" name="inpage" value="{$data.inpage}" />
+          <div class="tipss">前台数据每页显示记录数</div>
+        </div>
+      </div>
+        
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(0);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(1).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

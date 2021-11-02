@@ -1,0 +1,51 @@
+{include file="public/header"}
+  <ul class="bread">
+    <li><a href="" target="right" class="icon-home"> 首页</a></li>
+    <li><a href="##" id="a_leader_txt">网站信息</a></li>
+  </ul>
+  <div class="admin">
+    <table width="99%" border="0" cellspacing="0" cellpadding="0" id="main">
+      <tbody>
+        <tr>
+          <td colspan="2" align="left" valign="top">
+            <span class="time"><strong>你好！{$user.username}</strong><u>[超级管理员]</u></span>
+            <div class="top">
+              <span class="left">您上次的登灵时间：{$user.lastlogintime}   登录IP：{$user.lastloginip} &nbsp;&nbsp;&nbsp;&nbsp;如非您本人操作，请及时</span>
+              <a href="index.html" target="mainFrame" onfocus="this.blur()">更改密码</a>
+            </div>
+            <div class="sec">这是您第<span class="num">{$user.num}</span>次,登录！</div>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" width="50%">
+            <div class="main-tit">网站信息</div>
+            <div class="main-con">
+              文章数：<font color="#538ec6"><strong>{$newsnum}</strong></font><span>&nbsp;&nbsp;(包括草稿箱在内的所有文章)</span><br>
+              栏目数：<font color="#538ec6"><strong>{$catnum}</strong></font><br>
+              管理员个数：<font color="#538ec6"><strong>6</strong></font> 人<br>
+              登陆者IP：{$user.lastloginip}<br>
+              程序编码：UTF-8<br>
+            </div>
+          </td>
+          <td align="left" valign="top" width="49%">
+            <div class="main-tit">服务器信息</div>
+            <div class="main-con">
+                {volist name='server' id='vo'}
+                  {$key}:{$vo}<br>
+                {/volist}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" valign="top">
+            <div class="main-corpy">系统提示</div>
+            <div class="main-order">
+              1=&gt;如您在使用过程有发现出错请及时与我们取得联系！<br>
+              2=&gt;强烈建议您将IE7以上版本或其他的浏览器</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

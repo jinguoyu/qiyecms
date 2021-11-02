@@ -1,0 +1,310 @@
+{include file="public/header"}
+<form method="post" action="" id="listform">
+  <div class="admin" style="top:70px">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="{:url('news/add')}"> 添加内容</a> </li>
+        <li>搜索：</li>
+        <li>首页
+          <select name="s_ishome" class="input" id="s_ishome"  onchange="changesearch()" style="width:60px; line-height:17px; display:inline-block">
+            <option value="0">选择</option>
+            <option value="1">是</option>
+            <option value="2">否</option>
+          </select>
+          &nbsp;&nbsp;
+          栏目
+          <select name="s_iscolumn" class="input" id="s_iscolumn" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
+            <option value="0">选择</option>
+            <option value="1">是</option>
+            <option value="2">否</option>
+          </select>
+          &nbsp;&nbsp;
+          其他
+          <select name="s_isother" class="input"  id="s_isother" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
+            <option value="0">选择</option>
+            <option value="1">是</option>
+            <option value="2">否</option>
+          </select>
+        </li>
+          <li>
+            <select name="cid" class="input" id = "cid" style="width:200px; line-height:17px;" onchange="changesearch()">
+              <option value="">请选择分类</option>
+              {volist name="info" id="vo"}
+              <option value="{$vo.id}">{$vo.catname}</option>
+              {/volist}
+            </select>
+          </li>
+        <li>
+          <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="setsearch();" > 搜索</a></li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="7%" style="text-align:center;">排序</th>
+        <th width="50">ID</th>
+        <th >标题</th>
+        <th width="10%">栏目</th>
+        <th width="8%">作者</th>
+        <th width="5%">缩略图</th>
+        <th width="10%">推荐位</th>
+        <th width="10%">点击量</th>
+        <th width="14%">添加时间</th>
+        <th width="12%">操作</th>
+      </tr>
+      {volist name="list" id="vo" }
+        <tr>
+          <td><input type="checkbox" name="id[]" value="{$vo.id}" /><input type="text" name="sort[{$vo.id}]" value="{$vo.sort}" style="width:28px; text-align:center; border:1px solid #ddd; padding:2px 0;" /></td>
+
+          <td style="text-align:center;">{$vo.id}</td>
+
+          <td style="text-align:left">
+{if condition = "$vo.cateUrl eq ''"}
+{$vo.title}
+{else /}
+ <a href="{:url('index/'.$vo['cateUrl'].'/article',array('id'=>$vo['id']))}" target="_blank">{$vo.title}</a>
+ {/if}
+          </td>
+          <td>{$vo.catname}</td>
+          <td>{$vo.author}</td>
+          {if condition=" $vo.thumb eq ''"}
+          <td>否</td>
+          {else /}
+          <td>是</td>
+          {/if}
+          <td>
+          {if condition="$vo.posid eq '0'"}
+            <font>无</font>
+          {else /}
+            <font color="#09c">{$vo.posid}</font>
+          {/if}
+          </td>
+          <td>{$vo.views}</td>
+          <td>{$vo.addtime}</td>
+          <td><div class="button-group"> <a class="button border-main" href="{:url('news/eidt',array('id'=>$vo['id']))}"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del({$vo.id})"><span class="icon-trash-o"></span> 删除</a> </div></td>
+        </tr>
+        <input type="hidden" name="posids[{$vo.id}]" value="{$vo.posids}">
+        {/volist}
+
+      <tr>
+        <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
+          全选 </td>
+        <td colspan="8" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a> <a href="javascript:void(0)" style="padding:5px 15px; margin:0 10px;" class="button border-blue icon-edit" onclick="sorts()"> 排序</a> 操作：
+          <select name="ishome" id="ishome" style="padding:5px 15px; border:1px solid #ddd;" onchange="changeishome(this)">
+            <option value="-1">首页</option>
+            <option value="1">是</option>
+            <option value="2">否</option>
+          </select>
+          <select name="iscolumn" id="iscolumn" style="padding:5px 15px; border:1px solid #ddd;" onchange="changeisvouch(this)">
+            <option value="-1">栏目</option>
+            <option value="1">是</option>
+            <option value="2">否</option>
+          </select>
+          <select name="isother" id="isother" style="padding:5px 15px; border:1px solid #ddd;" onchange="changeistop(this)">
+            <option value="-1">其他</option>
+            <option value="1">是</option>
+            <option value="2">否</option>
+          </select>
+          &nbsp;&nbsp;&nbsp;
+          
+          移动到：
+          <select name="movecid" style="padding:5px 15px; border:1px solid #ddd;" onchange="changecate(this)">
+            <option value="">请选择分类</option>
+              {volist name="info" id="vo"}
+              <option value="{$vo.id}">{$vo.catname}</option>
+              {/volist}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="9">{$page}</td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+//根据条件筛选文章
+function changesearch(){  
+  var home = $("[id='s_ishome']").val();
+  var column = $("[id='s_iscolumn']").val();
+  var other = $("[id='s_isother']").val();
+  var cid = $("[id='cid']").val();
+    location.href='/admin/news/setchange/shome/'+home+'/scolumn/'+column+'/sother/'+other+'/cid/'+cid;
+   
+    
+}
+
+//搜索
+function setsearch(){    
+   listform.action="{:url('news/search')}";
+    $("#listform").submit(); 
+    
+}
+//单个删除
+function del(id){
+
+var id =id;
+
+  if(confirm("您确定要删除吗?")){
+      location.href='/admin/news/delete/id/'+id;
+  }
+}
+
+//全选
+$("#checkall").click(function(){ 
+
+  $("input[name='id[]']").each(function(){
+    if (this.checked) {
+      //this.checked = false;
+       $("td :checkbox").prop("checked", false);
+    }
+    else {
+      //this.checked = true;
+            $("td :checkbox").prop("checked", true);
+    }
+  });
+})
+
+//批量删除
+function DelSelect(){
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+
+  });
+  if (Checkbox){
+    var t=confirm("您确认要删除选中的内容吗？");
+    if (t==false) return false; 
+
+    listform.action="{:url('news/modelete')}";
+
+    $("#listform").submit();   
+
+
+  }
+  else{
+    alert("请选择您要删除的内容!");
+    return false;
+  }
+}
+
+//批量排序
+function sorts(){
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+ 
+    listform.action="{:url('news/sorts')}";
+    $("#listform").submit();    
+   
+}
+
+
+//批量首页显示
+function changeishome(o){
+  var home = $("[id='ishome']").val();//获取移动到首页下拉框的值
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+  if (Checkbox){
+    if(home >0){
+      listform.action="{:url('news/ishome')}";
+      $("#listform").submit();
+    }
+  
+  }
+  else{
+    alert("请选择要操作的内容!");    
+  
+    return false;
+  }
+}
+
+//批量栏目
+function changeisvouch(o){
+  var column = $("[id='iscolumn']").val();//获取移动到栏目下拉框的值
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+  if (Checkbox){
+    if(column>0){
+      listform.action="{:url('news/iscolumn')}";
+      $("#listform").submit(); 
+    }
+    
+ 
+  }
+  else{
+    alert("请选择要操作的内容!");  
+    
+    return false;
+  }
+}
+
+//批量其他
+function changeistop(o){
+  var other = $("[id='isother']").val();//获取移动到栏目下拉框的值
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+  if (Checkbox){    
+      if(other>0){
+        listform.action="{:url('news/isother')}";
+        $("#listform").submit(); 
+      }
+  }
+  else{
+    alert("请选择要操作的内容!");    
+  
+    return false;
+  }
+}
+
+
+//批量移动
+function changecate(o){
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+  if (Checkbox){    
+    listform.action="{:url('news/cate')}";
+    $("#listform").submit();    
+  }
+  else{
+    alert("请选择要操作的内容!");
+    
+    return false;
+  }
+}
+</script>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(2);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(0).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{include file="public/header"}
+  <div class="admin" style="top:70px">
+    <div class="panel-head"><strong class="icon-reorder"> 生日列表</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="{:url('Birthday/add')}"> 添加生日</a> </li>
+        
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="20" style="text-align:left; padding-left:20px;">ID</th>
+        <th>姓名</th>
+        <th>分类</th>
+        <th>生日</th>
+        <th width="20%">备注</th>
+   
+        <th width="310">操作</th>
+      </tr>
+        {volist name='user' id='vo'}
+        <tr>
+          <td style="text-align:left; padding-left:20px;">{$vo.id}</td>
+          <td>{$vo.name}</td>
+          <td width="10%">
+         {if condition="$vo['cid']==0"}
+          阴历
+          {else/}
+          阳历
+        {/if}
+        </td>
+          <td>{$vo.yue}月{$vo.ri}日</td>
+          <td></td>
+          <td>
+            <div class="button-group"> 
+                <a class="button border-main" href="{:url('Birthday/edit',array('id'=>$vo.id))}"><span class="icon-edit"></span> 修改</a> 
+                <a class="button border-red" href="{:url('Birthday/delete',array('id'=>$vo.id))}"><span class="icon-trash-o"></span> 删除</a> 
+            </div>
+          </td>
+        </tr>
+        {/volist}
+    </table>
+  </div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(4);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(0).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

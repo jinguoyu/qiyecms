@@ -1,0 +1,111 @@
+{include file="public/header"}
+<div class="admin" style="top:70px">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" enctype="multipart/form-data" action="{:url('site/save')}">
+      <div class="form-group">
+        <div class="label">
+          <label>网站名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="name" value="{$data.name}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站LOGO：</label>
+        </div>
+        <div class="field">
+          <input type="file"  name="slogo" class="input tips" style="width:25%; float:left;" data-toggle="hover" data-place="right" data-image=""  />
+
+        </div>
+      </div>
+      <div class="form-group" >
+        <div class="label">
+          <label>网站标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="title" value="{$data.title}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站关键字：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="keywords"  value="{$data.keywords}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站描述：</label>
+        </div>
+        <div class="field">
+          <textarea class="input" name="description" >{$data.description}</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>电话：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="telephone" value="{$data.telephone}" />
+          <div class="tips"></div>
+        </div>
+       </div>       
+      <div class="form-group">
+        <div class="label">
+          <label>手机：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="mobilephone" value="{$data.mobilephone}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>Email：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="email" value="{$data.email}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>地址：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="address" value="{$data.address}" />
+          <div class="tips"></div>
+        </div>
+      </div>  
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(0);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(0).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

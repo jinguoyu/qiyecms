@@ -1,0 +1,91 @@
+{include file="public/header"}
+<div class="admin" style="top:70px">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加子栏目</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:url('column/save')}">
+      <div class="form-group">
+        <div class="label">
+          <label>栏目名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="catname" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>上级栏目：</label>
+        </div>
+        <div class="field">
+          <select name="pid" class="input w50">
+            <option value="0">一级栏目</option>
+
+            {volist name="cate" id="vo"}
+            {if condition="$vo.id eq $id"}
+            <option value="{$vo.id}" selected="selected">{$vo.html}{$vo.catname}</option>
+            {else }
+            <option value="{$vo.id}">{$vo.html}{$vo.catname}</option>
+            {/if}
+            {/volist}
+
+          </select>
+          <div class="tips">不选择上级分类默认为一级分类</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>栏目标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="title" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>栏目链接：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="url" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>栏目关键字：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="keywords" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>栏目描述：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="description"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(1);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(1).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

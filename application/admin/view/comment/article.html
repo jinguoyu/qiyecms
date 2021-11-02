@@ -1,0 +1,62 @@
+{include file="public/header"}
+<style>
+#main-tab td{ font-size:12px; line-height:40px;}
+.borderright{ border-right:1px solid #ebebeb}
+.borderbottom{ border-bottom:1px solid #ebebeb}
+.borderleft{ border-left:1px solid #ebebeb}
+.bggray{ background:#f9f9f9; font-size:14px; font-weight:bold; padding:10px 10px 10px 0; width:120px;}
+.main-for{ padding:10px;}
+</style>
+<div class="panel admin" style="top:70px">
+   <div class="panel-head"><strong class="icon-reorder"> 评论管理</strong></div>
+<!--main_top-->
+
+ <form action="{:url('comment/revise')}" method="post">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+    <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+      <td align="right" class="borderright borderbottom bggray">姓名：</td>
+      <td class="borderright borderbottom">
+        <input type="text" name="name" value="{$data.name}" style="width:100%;height:100%">
+      </td>
+      </tr>
+      <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+      <td align="right" class="borderright borderbottom bggray">文章ID：</td>
+      <td class="borderright borderbottom main-for">{$data.newsid}</td>
+      </tr>
+    <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+      <td align="right" class="borderright borderbottom bggray">文章标题：</td>
+      <td class="borderright borderbottom main-for">{$data.news_title}</td>
+      </tr>
+    <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+      <td align="right" class="borderright borderbottom bggray">评论时间：</td>
+      <td class="borderright borderbottom main-for">{$data.addtime|date="Y-m-d H:i:s",###}</td>
+    </tr>
+    <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+      <td align="right" class="borderright borderbottom bggray">评论内容：</td>
+      <td class="borderright borderbottom" style="line-height:24px;">
+        <input type="text" name="text" value="{$data.text}" style="width:100%;height:100%">
+      </td>
+    </tr>
+      <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+      <td align="right"  class="borderright borderbottom bggray">操作：</td>
+      <td><a class="button border-red" href="{:url('comment/delete',array('id'=>$data['id']))}"><span class="icon-trash-o"></span> 删除</a>
+          <button class="button bg-main icon-check-square-o" type="submit" >修改</button>
+      </td>
+    </tr>
+</table>
+<input type="hidden" name="id" value="{$data.id}">
+</form>
+</div>
+</script>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(7);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(0).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

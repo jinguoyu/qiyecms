@@ -1,0 +1,176 @@
+{include file="public/header"}
+<style>
+.alert-content{
+  width:100%;
+  color: #468847;
+  height: 34px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 6px;
+  background-color: #CCFF99;
+  border-bottom: solid 1px #ddd;
+}
+
+</style>
+
+<div class="admin" style="top:70px">
+ <div class="panel-head" id="add" style="display:black"><strong><span class="icon-pencil-square-o"></span>增加相册</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:url('photo/add')}" enctype="multipart/form-data">  
+      <div class="form-group">
+        <div class="label">
+          <label>标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:50%" value="" name="title" id="title" data-validate="required:请输入标题" />
+          <div class="tipss" id="titletips" style="color:red"></div>
+        </div>
+      </div>  
+      <if condition="$iscid eq 1">
+        <div class="form-group">
+          <div class="label">
+            <label>名字：</label>
+          </div>
+          <div class="field">
+            <select name="nameid" class="input w50">
+            {volist name="names" id="vo"}
+              <option value="{$vo.id}">{$vo.name}</option>
+            {/volist}
+            </select>
+            <div class="tips"></div>
+          </div>
+        </div>
+
+      </if>
+      <div class="form-group">
+        <div class="label">
+          <label>置顶：</label>
+        </div>
+        <div class="field">
+          <input type="radio" class="" value="1" name="top"/>是
+          <input type="radio" class="" value="0" name="top" checked/>否
+        </div>
+      </div> 
+      <div class="form-group">
+        <div class="label">
+          <label>内容：</label>
+        </div>
+        <div class="field">
+          <script id="container" name="content" type="text/plain">
+
+          </script>
+
+          <div class="tipss" id="contenttips" style="color:red"></div>
+        </div>
+      </div>
+     
+      <div class="clear"></div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>发布时间：</label>
+        </div>
+        <div class="field"> 
+
+          <input type="text" class="laydate-icon input w50"  id = "test-n1" name="addtime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" value=""  data-validate="required:日期不能为空" style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;" />
+          <script src="__PUBLIC__/js/laydate/laydate.js"></script>
+          <script>
+              laydate.render({
+              elem: '#test-n1',
+              type:'datetime',
+              istime: true,
+              format: 'yyyy-MM-dd HH:mm:ss',
+              theme: 'grid'
+
+          });
+          </script>
+
+          <div class="tips"></div>
+        </div>
+      </div>
+       <div class="form-group">
+          <div class="label">
+            <label>分类：</label>
+          </div>
+          <div class="field">
+            <select name="sort" class="input w50">
+              <option value="1">照片</option>
+              <option value="2">视频</option>
+            </select>
+            <div class="tips"></div>
+          </div>
+        </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit">发布</button>
+        </div>
+      </div>
+      <input type="hidden" name="content" value="" id="content">
+
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(8);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(1).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="__ROOT__/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__ROOT__/ueditor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container',{
+        initialFrameHeight: 400,
+
+      });   
+    </script>
+
+
+
+<script>
+//提交表单前先进行验证
+function check(){
+  var title = $("#title").val();
+  var content = UE.getEditor('container');
+  var body = UE.getEditor('container').getContent(); 
+
+  if(title==""){
+    $('#titletips').html("标题不能为空");
+    $("#title").focus(); 
+
+    return false;
+  }
+
+}
+
+</script>
+<script>
+$(document).ready(function(){
+setInterval('refreshQuery()',1000);
+});
+
+function refreshQuery(){
+  //获取html内容
+  html = ue.getContent();
+  $('#content').val(html);
+  
+ console.log(html);
+}
+</script>
+
+
+
+</body>
+</html>

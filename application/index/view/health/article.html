@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>{$data.title}</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- include main css -->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/slick.css"/>	
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/jquery.mmenu.all.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/animates.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/animate.css"/>
+</head>
+<body>
+	
+<div>
+	<!--header-->
+	{include file="Public/top"}
+	<!--banner-->
+	<section class="banner">
+		<div><img src="__PUBLIC__/images/index/banner_health.jpg" alt="" /></div>
+	</section>
+	<div class="zi_com clearfix">
+		<div class="zi_right">
+			<div class="bar clearfix">
+				<span class="b_tt"><a href="{:url('health/index')}">健康百科</a></span>
+				<span class="curbar"><i>您当前的位置：</i><a href="/">首页</a> > <i>健康百科</i></span>
+			</div>
+			<div class="news_show">
+				<div class="top_show">
+					<h3>{$data.title}</h3>
+					<p>发表时间：{$data.addtime|date="Y-m-d H:i:s",###} │ 点击：{$data.views}</p>
+				</div>
+				<div class="case_c">
+					<p>{$data.content}</p>
+					<p style="margin-top:40px">文章来源：{$data.from}</p>
+				</div>
+			</div>
+			<ul class="prev_next clearfix">
+				{if condition="$prenew==''"}
+				<li><b>上一篇：</b>暂无</li>
+				{else /}
+				<li><a href="{:url('health/article',array('id'=>$prenew['id']))}"><b>上一篇：</b>{$prenew.title}</a></li>
+				{/if}
+
+				{if condition="$nexnew==''"}
+				<li><b>下一篇：</b>暂无</li>
+				{else /}
+				<li><a href="{:url('health/article',array('id'=>$nexnew['id']))}"><b>下一篇：</b>{$nexnew.title}</a></li>
+				{/if}
+			</ul>
+			<div class="guan_case">
+				<div class="guan_top">
+					<span>演唱作品</span>
+				</div>
+				<ul class="case_ul clearfix"> 
+					{volist name="music" id="vo"}
+					<li>
+						<a href="{:url('singer/article',array('id'=>$vo['id']))}">
+							<div class="pic">
+								<img src="{$vo.thumb}" alt="{$vo.title}" class="vcenter" />
+								<i></i>
+							</div>
+							<p>{$vo.title}</p>
+						</a>
+					</li>
+					{/volist}
+				</ul>
+			</div>
+
+			<div class="guan_new">
+				<div class="guan_top">
+					<span>健康百科</span>
+				</div>
+				<ul class="guan_ul2">
+					{volist name="news" id="vo"}
+					<li>
+						<a href="{:url('health/article',array('id'=>$vo['id']))}">{$vo.title}</a><span>{$vo.addtime|date="Y-m-d",###}</span>
+					</li>
+					{/volist}
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+{include file="Public/footer"}
+</div>	
+
+<!--Include Js-->
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!--移动端导航-->
+<script src="__PUBLIC__/js/index/jquery.mmenu.all.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/index/wow.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/index/public.js" type="text/javascript" charset="utf-8"></script>
+
+<!--slick-->
+<script src="__PUBLIC__/js/index/slick.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var nav = $(".nav_right li");
+	nav.eq(4).addClass("active");
+</script>
+
+<!--placeholder-->
+<script src="__PUBLIC__/js/index/jquery.placeholder.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){ $('input, textarea').placeholder(); });
+</script>
+</body>
+</html>
+<script>
+if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+	new WOW().init();
+};
+</script>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>{$site.title}</title>
+	<meta name="keywords" content="{$site.keywords}">
+	<meta name="description" content="{$site.description}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="referrer" content="no-referrer"/>
+	<!-- include main css -->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/slick.css"/>	
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/jquery.mmenu.all.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/animates.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/animate.css"/>
+
+	<style>
+		.banner img {
+			width:100%;
+			height:587px;
+		}
+		.p_right .pic img {
+			width:290px;
+			height:230px;
+		}
+		.ri img {
+		height:70px;
+		}
+	</style>
+</head>
+<body>
+	
+<div>
+	<!--header-->
+{include file="Public:top" /}
+	<!--banner-->
+	<section class="banner">
+		<div><img src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/55892845.jpg" alt="" /></div>
+		<div><img src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/1742141.jpg" alt="" /></div>
+		<div><img src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/23130375.jpg" alt="" /></div>
+		<div><img src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/59748851.jpg" alt="" /></div>
+	</section>
+
+	<!--pro-->
+	<div class="home_pro">
+		<div class="pro_nei">
+			<div class="top_all">
+				<h3>演唱作品</h3>
+				<span>SINGING WORKS</span> 
+			</div>
+			<div class="pro_com clearfix">
+				<div class="p_right wow bounceInLeft" style="float:left">
+					<ul class="clearfix">
+						{volist name="singer" id="vo"  offset="0" length='4'}
+						<li>
+							<div class="pic">
+								<img src="{$vo.thumb}" alt="{$vo.title}"class="vcenter" />
+								<i></i>
+							</div>
+							<a href="{:url('singer/article',array('id'=>$vo['id']))}" class="zhe_a slideExpandUp">
+								<img src="/static/images/index/lian.png" alt="" />
+								<span class="zw">{$vo.title}</span>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+				<div class="p_right wow bounceInRight">
+					<ul class="clearfix">
+						{volist name="singer" id="vo"  offset="4" length='4'}
+						<li>
+							<div class="pic">
+								<img src="{$vo.thumb}" alt="{$vo.title}"class="vcenter" />
+								<i></i>
+							</div>
+							<a href="{:url('singer/article',array('id'=>$vo['id']))}" class="zhe_a slideExpandUp">
+								<img src="/static/images/index/lian.png" alt="" />
+								<span class="zw">{$vo.title}</span>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="home_news">
+		<div class="news_com">
+			<div class="top_all">
+				<h3>梅城新闻</h3>
+				<span>NEWS AND INFORMATION</span> 
+			</div>
+			<div class="news_nei clearfix">
+				<div class="n_right" style="float:left">
+					<ul>
+						{volist name="news" id="vo"  offset="0" length='3'}
+						<li class="clearfix wow bounceInRight"  data-wow-delay="0.5s">
+							<a href="{:url('news/article',array('id'=>$vo['id']))}">
+							<span class="ri">
+							{if condition="$vo.thumb eq '' "}
+								<img src="__PUBLIC__/images/index/timg.jpg" width="100%" >
+							{else /}
+								<img src="{$vo.thumb}" width="100%" alt="{$vo.title}">
+							{/if}
+							</span>
+							<div class="wen_nei">
+								<h4>{$vo.title}</h4>
+								<p>{$vo.description}</p>
+							</div>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+				<div class="n_right">
+					<ul>
+						{volist name="news" id="vo"  offset="3" length='3'}
+						<li class="clearfix wow bounceInRight"  data-wow-delay="0.5s">
+							<a href="{:url('news/article',array('id'=>$vo['id']))}">
+							<span class="ri">
+							{if condition="$vo.thumb eq '' "}
+								<img src="__PUBLIC__/images/index/timg.jpg" width="100%" >
+							{else /}
+								<img src="{$vo.thumb}" width="100%" alt="{$vo.title}">
+							{/if}
+							</span>
+							<div class="wen_nei">
+								<h4>{$vo.title}</h4>
+								<p>{$vo.description}</p>
+							</div>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	{include file="Public:footer"}
+
+</div>	
+
+<!--Include Js-->
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!--移动端导航-->
+<script src="__PUBLIC__/js/index/jquery.mmenu.all.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/index/wow.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/index/public.js" type="text/javascript" charset="utf-8"></script>
+
+<!--slick-->
+<script src="__PUBLIC__/js/index/slick.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	   
+	$(".banner").slick({
+			fade: false,
+			autoplay:true,
+			arrows: false,
+			dots:true,
+		
+	})
+var nav = $(".nav_right li");
+nav.eq(0).addClass("active");
+</script>
+
+<!--placeholder-->
+<script src="__PUBLIC__/js/index/jquery.placeholder.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){ $('input, textarea').placeholder(); });
+</script>
+</body>
+</html>
+<script>
+if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+	new WOW().init();
+};
+</script>

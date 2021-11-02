@@ -1,0 +1,37 @@
+{include file="public/header"}
+<div class="admin" style="top:70px">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加名字</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:url('photo/name')}">
+      <div class="form-group">
+        <div class="label">
+          <label>名字：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="name" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(8);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(2).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

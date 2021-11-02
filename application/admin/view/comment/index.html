@@ -1,0 +1,106 @@
+{include file="public/header"}
+<form method="post" action="" id="listform">
+  <div class="panel admin" style="top:70px">
+    <div class="panel-head"><strong class="icon-reorder"> 评论管理</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>
+          <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+          <button type="button" class="button border-red" onclick="DelSelect()"><span class="icon-trash-o"></span> 批量删除</button>
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="70">ID</th>
+        <th width="100">姓名</th>       
+        <th width="80">文章id</th>
+        <th >文章标题</th>
+        <th >内容</th>
+         <th width="150">评论时间</th>
+        <th width="180">操作</th>       
+      </tr>
+
+      {volist name="data" id="vo"}      
+        <tr>
+          <td><input type="checkbox" name="id[]" value="{$vo.id}" />
+            {$vo.id}</td>
+          <td>{$vo.name}</td>
+          <td>{$vo.newsid}</td>
+          {if condition="$vo.url eq ''"}
+          <td>{$vo.title}</td>
+          {else /}
+          <td><a href="{:url('index/'.$vo['url'].'/article',array('id'=>$vo['newsid']))}" target="_blank">{$vo.title}</a></td> 
+          {/if}
+          <td>{$vo.text|mb_substr=0,25,'utf-8'}...</td>
+          <td>{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+          <td><div class="button-group">
+           <a class="button border-main" href="{:url('comment/article',array('id'=>$vo['id']))}"><span class="icon-edit"></span> 详情</a> 
+          <a class="button border-red" href="javascript:void(0)" onclick="return del({$vo.id})"><span class="icon-trash-o"></span> 删除</a> 
+          </div></td>
+        </tr>
+
+        {/volist}
+      <tr>
+        <td colspan="7">
+          {$page}
+        </td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+function del(id){
+	if(confirm("您确定要删除吗?")){
+
+		location.href='/admin/comment/delete/id/'+id;
+	}
+}
+
+$("#checkall").click(function(){ 
+  $("input[name='id[]']").each(function(){
+	  if (this.checked) {
+		  this.checked = false;
+	  }
+	  else {
+		  this.checked = true;
+	  }
+  });
+})
+
+function DelSelect(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==false) return false;
+
+    listform.action="{:url('comment/modelete')}";
+
+    $("#listform").submit();   
+
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+}
+
+</script>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(7);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(0).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

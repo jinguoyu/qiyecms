@@ -1,0 +1,105 @@
+{include file="public/header"}
+<style>
+.alert-content{
+  width:100%;
+  color: #468847;
+  height: 34px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 6px;
+  background-color: #CCFF99;
+  border-bottom: solid 1px #ddd;
+}
+
+</style>
+<div class="admin" style="top:70px">
+ <div class="panel-head" id="add" style="display:black"><strong><span class="icon-pencil-square-o"></span>{$data?'修改视频1':'添加视频1'}</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:url('HanDance/save')}" onsubmit="return check()">  
+      <div class="form-group">
+        <div class="label">
+          <label>标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:50%" value="{$data ? $data['title']:''}" name="title" id="title" data-validate="required:请输入标题" />
+          <div class="tipss" id="titletips" style="color:red"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>内容：</label>
+        </div>
+        <div class="field">
+        <input type="text" class="input w50" style="width:50%" value="{$data ? $data['content']:''}" name="content" id="content" data-validate="required:请输入视频地址" />
+
+          <div class="tipss" id="contenttips" style="color:red"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        {present name="data"}
+        <input type="hidden" name = "id" value="{$data.id}">
+        {/present}
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit">发布</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site1 = $(".lsm-sidebar-item").eq(10).addClass("lsm-sidebar-show");
+        site1.children('ul').eq(0).css('display',"block");
+
+    var site = $(".lsm-sidebar-item").eq(11);
+        site.addClass("lsm-sidebar-show");
+        site.children('ul').eq(0).css('display',"block");
+        site.children('ul').eq(0).children('li').eq(1).children('a').addClass("active");
+  }
+  window.onload=myfun;
+  
+$('#title').blur(function(){
+     var title = $("#title").val();    
+     if(title !=""){
+        $('#titletips').html("");
+     }else{
+        return false;
+     }
+  });
+    
+  $('#content').blur(function(){
+     var content = $("#content").val();    
+     if(content !=""){
+        $('#contenttips').html("");
+    }else{
+        return false;
+    }
+  });
+</script>
+
+<script>
+//提交表单前先进行验证
+function check(){
+  var title = $("#title").val();
+  var content = $("#content").val();
+  if(title==""){
+    $('#titletips').html("标题不能为空");
+    $("#title").focus(); 
+    return false;
+  }
+  if(content==""){
+    $('#contenttips').html("视频地址为空");
+    $("#content").focus(); 
+    return false;
+  }
+}
+</script>
+</body>
+</html>

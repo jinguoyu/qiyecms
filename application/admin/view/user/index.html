@@ -1,0 +1,52 @@
+{include file="public/header"}
+  <div class="admin" style="top:70px">
+    <div class="panel-head"><strong class="icon-reorder"> 用户列表</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="{:url('User/add')}"> 添加用户</a> </li>
+        
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="20" style="text-align:left; padding-left:20px;">ID</th>
+        <th>用户名</th>
+        <th>分类</th>
+        <th>最后登录ip</th>
+        <th width="20%">最后登录时间</th>
+        <th>登录次数</th>
+        <th>用户昵称</th>
+        <th width="310">操作</th>
+      </tr>
+        {volist name='user' id='vo'}
+        <tr>
+          <td style="text-align:left; padding-left:20px;">{$vo.userid}</td>
+          <td>{$vo.username}</td>
+          <td width="10%">{$vo.catid}</td>
+          <td>{$vo.lastloginip}</td>
+          <td>{$vo.lastlogintime}</td>
+          <td><font color="#00CC99">{$vo.num}</font></td>
+          <td>{$vo.realname}</td>
+          <td>
+            <div class="button-group"> 
+                <a class="button border-main" href="{:url('User/edit',array('id'=>$vo.userid))}"><span class="icon-edit"></span> 修改</a> 
+                <a class="button border-red" href="{:url('User/delete',array('id'=>$vo.userid))}"><span class="icon-trash-o"></span> 删除</a> 
+            </div>
+          </td>
+        </tr>
+        {/volist}
+    </table>
+  </div>
+
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(5);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(0).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+</body>
+</html>

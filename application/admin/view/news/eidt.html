@@ -1,0 +1,318 @@
+{include file="public/header"}
+<div class="admin" style="top:70px">
+ <div class="panel-head" id="add" style="display:black"><strong><span class="icon-pencil-square-o"></span>修改内容</strong></div>
+ <div class="alert-content" style="display:none">保存草稿成功</div>
+
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:url('news/save')}" enctype="multipart/form-data"> 
+      <div class="form-group">
+        <div class="label">
+          <label>标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:50%" value="{$data.title}" name="title" id="title" data-validate="required:请输入标题" />
+          <div class="tipss" id="titletips" style="color:red"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>关键字：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" style="width:50%;float: left;" name="keywords" value="{$data.keywords}" />
+          <div class="tipss">多关键词之间用“,”隔开</div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="label">
+          <label>缩略图：</label>
+        </div>
+        <div class="field">
+          <input type="text" id="url1"  name = "thumb" class="input tips" style="width:25%; float:left;"  value="{$data.thumb}"  data-toggle="hover" data-place="right" />
+          <input type="file" id="file"  name="thumbEidt" class="button bg-blue margin-left" onchange="handleFile()" style="float:left;width:100px" value=""   data-image="">
+          <div class="tipss">图片尺寸：400*224</div>
+        </div>
+      </div>     
+        <div class="form-group">
+        <div class="label">
+          <label>作者：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="author" value="{$data.author}"  />
+          <div class="tips"></div>
+        </div>
+      </div>    
+      <if condition="$iscid eq 1">
+        <div class="form-group">
+          <div class="label">
+            <label>栏目名：</label>
+          </div>
+          <div class="field">
+            <select name="catid" class="input w50">
+            {volist name="result" id="vo"}
+              {if condition="$vo.res eq 1"}
+              <option value="{$vo.id}" disabled="disabled">{$vo.html}{$vo.catname}</option>
+              {elseif condition="$vo.id eq $data.catid"}
+              <option value="{$vo.id}" selected="selected">{$vo.html}{$vo.catname}</option>
+              {else /}
+              <option value="{$vo.id}">{$vo.html}{$vo.catname}</option>
+              {/if}
+              }
+            {/volist}
+
+            </select>
+            <div class="tips"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="label">
+            <label>推荐位：</label>
+          </div>
+          <div class="field" style="padding-top:8px;"> 
+          {if condition="$data.posids eq 1 or $data.posids eq 3 or $data.posids eq 5 or $data.posids eq 7"}
+            首页<input type="checkbox" name="posids[]" value="1" checked="checked"/>
+          {else /}
+            首页 <input type="checkbox" name="posids[]" value="1"/>
+          {/if}
+
+          {if condition="$data.posids eq 2 or $data.posids eq 3 or $data.posids eq 6 or $data.posids eq 7"}
+            栏目<input type="checkbox" name="posids[]" value="2" checked="checked"/>
+          {else /}
+            栏目 <input type="checkbox" name="posids[]" value="2"/>
+          {/if}
+
+          {if condition="$data.posids eq 4 or $data.posids eq 5 or $data.posids eq 6 or $data.posids eq 7"}
+            其他<input type="checkbox" name="posids[]" value="4" checked="checked"/>
+          {else /}
+            其他 <input type="checkbox" name="posids[]" value="4"/>
+          {/if}
+         
+          </div>
+        </div>
+      </if>
+      <div class="form-group">
+        <div class="label">
+          <label>简介：</label>
+        </div>
+        <div class="field">
+          <textarea class="input" name="description" style=" height:90px;">{$data.description}</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>内容：</label>
+        </div>
+        <div class="field">
+          <script id="container" name="content" type="text/plain">
+          {$data.content}
+          </script>
+
+          <div class="tipss" id="contenttips" style="color:red"></div>
+        </div>
+      </div>
+     
+      <div class="clear"></div>
+
+
+      <div class="form-group">
+        <div class="label">
+          <label>排序：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="sort" value="{$data.sort}"  data-validate="number:排序必须为数字" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>发布时间：</label>
+        </div>
+        <div class="field"> 
+
+          <input type="text" class="laydate-icon input w50"  id = "test-n1" name="addtime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" value="{$data.addtime}"  data-validate="required:日期不能为空" style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;" />
+          <script src="__PUBLIC__/js/laydate/laydate.js"></script>
+          <script>
+              laydate.render({
+              elem: '#test-n1',
+              type:'datetime',
+              istime: true,
+              format: 'yyyy-MM-dd HH:mm:ss',
+
+          });
+          </script>
+
+          <div class="tips"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>点击次数：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="views" value="{$data.views}" data-validate="member:只能为数字"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>来源：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:50%" name="from" value="{$data.from}" data-validate="member:只能为数字"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit" onclick="this.form.status.value='0';">发布</button>
+          <button class="button bg-main icon-check-square-o" type="submit" onclick="this.form.status.value='1';" id="">存草稿</button>
+
+        </div>
+      </div>
+      <input type="hidden" name="content" value="" id="content">
+      <input type="hidden" name = "id" value="{$data.id}">
+      <input type="hidden" name="status" value="{$data.status}" id="status"><!-- 文章状态 -->
+    </form>
+  </div>
+</div>
+ <!--左侧菜单的点亮--> 
+<script>
+  function myfun(){
+    var site = $(".lsm-sidebar-item").eq(2);
+    site.addClass("lsm-sidebar-show");
+    site.children('ul').eq(0).css('display',"block");
+    site.children('ul').eq(0).children('li').eq(2).children('a').addClass("active");
+  }
+  window.onload=myfun;
+</script>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="__ROOT__/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__ROOT__/ueditor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container',{
+        initialFrameHeight: 400,
+
+      });
+
+      //对编辑器的操作最好在编辑器ready之后再做
+//       ue.ready(function() {
+//         //获取html内容
+//         var html = ue.getContent();
+
+//       $('#content').value=html;
+
+// });    
+    </script>
+
+ <script>
+ function handleFile(){
+          var file = document.getElementById("file");
+        var fileName = document.getElementById("url1");
+            fileName.value = file.value;
+
+console.log(file.value);
+console.log(fileName.value);
+
+        }
+
+ </script>
+
+<!-- 自动保存草稿 -->
+<script>
+gettime ={$drafttime};//每隔多久运行一次
+num ={$data.id}; //如果是刚打开就是0，如果已经保存过一次了就是大于0.
+
+window.setInterval(ajax_draft,gettime); 
+
+
+
+function ajax_draft(){
+  var params  = $('.form-x').serialize();
+  var idata = JSON.stringify(params);
+  idata =idata.replace(/\"/g, ""); 
+
+  // 获取推荐位的值
+var id = document.getElementsByName('posids[]');
+            var value = new Array();
+            arr =0;
+            for(var i = 0; i < id.length; i++){
+             if(id[i].checked)
+              arr +=parseInt(id[i].value);
+            }
+
+    $.ajax({
+            type:"POST",
+            url: "/admin/news/ajax_draft/num/"+num+"/p/"+arr,
+            data:idata, 
+            dataType:"json",
+            success: function (date) {
+                $("#add").css("display","none");
+                 $(".alert-content").css("display","block");
+
+                 window.setTimeout(setcss,2000); 
+            },
+            error: function () {
+            console.log("1111");
+            }
+        });
+
+}
+
+function setcss(){
+  $("#add").css("display","block");
+  $(".alert-content").css("display","none");
+
+};
+
+
+//提交表单前先进行验证
+function check(){
+  var title = $("#title").val();
+  var content = UE.getEditor('container');
+  var body = UE.getEditor('container').getContent(); 
+
+  if(title==""){
+    $('#titletips').html("标题不能为空");
+    $("#title").focus(); 
+
+    return false;
+  }
+
+  // if(body==''){
+  //     $('#contenttips').html("文章内容不能为空");
+  //     $("#container").focus(); 
+  //   return false;
+  // }
+  
+}
+</script>
+
+<script>
+$(document).ready(function(){
+setInterval('refreshQuery()',3000);
+});
+
+function refreshQuery(){
+
+
+        //获取html内容
+       html = ue.getContent();
+
+      $('#content').val(html);
+
+}
+</script>
+
+</body>
+</html>

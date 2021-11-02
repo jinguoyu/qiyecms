@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Page title -->
+<title>{$site.title}</title>
+<meta name="keywords" content="{$site.keywords}" />
+<meta name="description" content="{$site.description}" />
+
+<!-- Meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="__PUBLIC__/css/index/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/css/index/font-awesome.min.css">
+<link rel="stylesheet" href="__PUBLIC__/css/index/theme.css">
+
+<link rel="stylesheet" href="__PUBLIC__/css/index/reset.css">
+<link rel="stylesheet" href="__PUBLIC__/css/index/lanren.css">
+
+<!-- SCRIPTS -->
+<script src="__PUBLIC__/js/index/jquery-2.2.0.min.js"></script>
+<script src="__PUBLIC__/js/index/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/index/owl.carousel.min.js"></script>
+<script src="__PUBLIC__/js/index/jquery.magnific-popup.min.js"></script>
+<script src="__PUBLIC__/js/index/jquery.stellar.min.js"></script>
+<script src="__PUBLIC__/js/index/wow.min.js"></script>
+<script src="__PUBLIC__/js/index/general.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/js/index/easySlider.js"></script>
+<!-- /SCRIPTS -->
+<style>
+@media screen and (min-width:900px) {
+	.limg{
+		display:none;
+	}
+
+
+	.media-left{
+		width:132px;
+		height:66px;
+	}
+.gallery-image img{
+	width:360px;
+	height:202px;
+}	
+}
+.pagination li{display:block;}
+.navbar-toggle {margin-right: initial;}
+	.on a{
+		color: #fff !important;
+    	background: #ff5555;
+	}
+</style>
+
+</head>
+<body>
+{include file="Public:top" /}
+	<!-- 轮播 -->
+	<div id="slider">
+    	<ul class="slides clearfix" style="margin-bottom:0">
+      	<li><img class="responsive" src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/55892845.jpg"></li>
+      	<li><img class="responsive" src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/1742141.jpg"></li>
+      	<li><img class="responsive" src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/23130375.jpg"></li>
+      	<li><img class="responsive" src="http://jinzilitop.oss-cn-beijing.aliyuncs.com/images/59748851.jpg"></li>
+    	</ul>
+    	<ul class="controls">
+      		<li><img src="__PUBLIC__/picture/index/prev.png" alt="previous"></li>
+      		<li><img src="__PUBLIC__/picture/index/next.png" alt="next"></li>
+    	</ul>
+    	<ul class="pagination" >
+      		<li class="active"></li>
+      		<li></li>
+      		<li></li>
+      		<li></li>
+    	</ul>
+  	</div>
+	<!-- /轮播 -->
+	<!-- Main -->
+	<main class="main-container">
+		<!-- 作品欣赏 -->
+		<section id="projects" class="section-small bg-light-gray">
+		<!-- 演唱作品 -->
+			<div class="container" style="padding-top:20px">
+				<div class="row">
+					<div class="col-md-6">
+						<header>
+							<h2 class="section-title"><a href="{:url('singer/index')}">演唱作品</a></h2>
+							<p class="section-subtitle">————余音绕梁三日犹未尽</p>
+						</header>
+					</div>
+				</div>
+				<div class="row mt">
+				{volist name="singer" id="vo"}
+					<div class="col-md-4 col-sm-6 fadeIn wow" data-wow-duration="1.3s">
+						<a href="{:url('singer/article',array('id'=>$vo['id']))}" class="project-item">
+							<div class="gallery-image"><img src="{$vo.thumb}" alt="{$vo.title}"></div>
+							<div class="info">
+								<div class="h4 title" style="white-space: nowrap;overflow: hidden;">{$vo.title}</div>
+								<p class="description">{$vo.addtime|date="Y-m-d H:i:s",###}</p>
+								<div class="social"><i class="fa fa-fw fa-heart-o"></i>{$vo.views}</div>
+							</div>
+						</a>
+					</div>
+				{/volist}
+				</div>		
+			</div>
+		<!-- /演唱作品 -->
+		</section>
+		<!-- /作品欣赏 -->
+
+		<!-- 资讯 -->
+		<section id="more-features" class="section">
+			<div class="container">
+			<!-- Section Header -->
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<header class="text-center">
+							<h2 class="section-title"><a href="{:url('news/index')}">梅城最新资讯</a></h2>
+							<p class="section-subtitle" style="margin:0">谁不说咱家乡美，了解家乡发生的点点滴滴</p>
+						</header>
+					</div>
+				</div>
+			<div class="row section-content zoomIn wow">
+				{volist name="news" id="vo"}
+				<div class="col-sm-6 more-feature">
+					<div class="media">
+						<div class="media-left" style=" padding-right: 20px;">
+							{if condition="$vo.thumb eq '' "}
+							<img src="/static/images/index/timg.jpg" width='132' height="66">
+							{else /}
+							<img src="{$vo.thumb}" width='132' height="66">
+							{/if}						
+						</div>
+						<div class="media-body">
+							<a href="{:url('news/article',array('id'=>$vo['id']))}"><h3 class="title newstitle" style="font-family:Microsoft YaHei;color: #000;">{$vo.title}</h3>
+								<p class="description" style="color:#777;line-height:20px;width:100%">
+								&nbsp;&nbsp;{$vo.description|mb_substr=0,60,'utf-8'}...
+								</p>
+							</a>
+						</div>
+					</div>
+				</div>
+				{/volist}
+			</div>
+		</div>
+	</section>
+	<!-- /Section: More Features -->
+</main>
+<!-- /Main -->
+{include file="Public:footer"}
+<script type="text/javascript">
+  $("#nav1").addClass("on");
+
+  $(function() {
+    $("#slider").easySlider( {
+      slideSpeed: 500,
+      paginationSpacing: "15px",
+      paginationDiameter: "10px",
+      paginationPositionFromBottom: "35px",
+      slidesClass: ".slides",
+      controlsClass: ".controls",
+      paginationClass: ".pagination"          
+    });
+  });
+</script>
+</body>
+</html>
